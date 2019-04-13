@@ -1,5 +1,12 @@
 body {
   margin: 0;
 }
+body div.container div.plateau div.carte {
+  display: inline-block;
+  border: 1px solid #aaa;
+  width: 100px;
+  height: 100px;
+  background-image: url(../images/cards.png);
+}
 
 /*# sourceMappingURL=style.css.map */
