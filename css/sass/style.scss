@@ -8,14 +8,14 @@ body{
     div.container{
 
         .plateau{
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
             text-align: center;
 
         }
 
         .informations{
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
 
         }
@@ -26,9 +26,21 @@ body{
 
 .carte{
     display: inline-block;
-    border: 1px solid #aaa;
     width: 100px;
     height: 100px;
-    background-image: url(../images/cards.png);
+    background-color: #ccc;
     cursor: pointer;
+
+    &.masquee{
+        border: 1px solid #aaa;
+    }
+
+    &.visible{
+        border: 1px solid #f00;
+        background-image: url(../images/cards.png);
+    }
+
+    &.validee{
+        border: 1px solid #0f0;
+    }
 }

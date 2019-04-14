@@ -5,22 +5,31 @@ body h1 {
   text-align: center;
 }
 body div.container .plateau {
-  max-width: 700px;
+  max-width: 650px;
   margin: 0 auto;
   text-align: center;
 }
 body div.container .informations {
-  max-width: 700px;
+  max-width: 650px;
   margin: 0 auto;
 }
 
 .carte {
   display: inline-block;
-  border: 1px solid #aaa;
   width: 100px;
   height: 100px;
-  background-image: url(../images/cards.png);
+  background-color: #ccc;
   cursor: pointer;
+}
+.carte.masquee {
+  border: 1px solid #aaa;
+}
+.carte.visible {
+  border: 1px solid #f00;
+  background-image: url(../images/cards.png);
+}
+.carte.validee {
+  border: 1px solid #0f0;
 }
 
 /*# sourceMappingURL=style.css.map */
