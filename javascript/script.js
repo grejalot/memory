@@ -169,7 +169,7 @@ $(document).ready(function(){
 
     function lancerChrono(){
         $('#temps').text("Temps restant : "+tempsRestant);
-        timer = setInterval(chronometre, 50);
+        timer = setInterval(chronometre, 10);
     }
 
 
@@ -186,7 +186,7 @@ $(document).ready(function(){
     }
 
     function chronometre(){
-        tempsRestant -= 0.05;
+        tempsRestant -= 0.01;
         $('#temps').text("Temps restant : "+Math.round(tempsRestant));
 
         pourcentageProgression = (tempsRestant*100)/dureeChrono;
