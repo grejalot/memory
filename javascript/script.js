@@ -1,13 +1,21 @@
 
 $(document).ready(function(){
 
+    // VARIABLES /////////////////////////////////////////////////////////////////////////
+    //Ici, on va déclarer toutes les variables qui vont nous servir pour l'exercice
+
     var ensembleDesCartes = new Object();
     var nbCartesVisibles = 0;
     var Carte1 = new Object();
     var Carte2 = new Object();
     var score = 0;
     var nbCartes = 12;
+    var tempsRestant = 10;
+    var nbClic = 0;
+    var timer = null;
 
+    // FONCTIONS /////////////////////////////////////////////////////////////////////////
+    //Ici, on va déclarer toutes les fonctions du jeu (mélange des cartes, score, timer etc.)
 
     function generer_plateau(){ 
         
@@ -41,7 +49,6 @@ $(document).ready(function(){
         }
     }
 
-    generer_plateau();
 
     function Carte(id, fruit, status) {
         this.id = id;
@@ -53,6 +60,12 @@ $(document).ready(function(){
     function verification(carte){
         objCarte = ensembleDesCartes[carte];
         idCarte = '#'+carte;
+
+        if(nbClic == 0){
+            lancerChrono();
+        }
+
+        nbClic ++;
 
 
         console.log(objCarte.status);
@@ -131,20 +144,65 @@ $(document).ready(function(){
 
 
     function gagne(){
+        arreterChrono();
         alert('Gagné !')
+    }
+
+
+    function perdu(){
+
+        nbCartesVisibles = 0;
+        Carte1 = "";
+        Carte2 = "";
+        score = 0;
+        nbClic = 0;
+
+        $('.carte').remove();
+
+        alert('Perdu !')
+    }
+
+    function lancerChrono(){
+        $('#temps').text("Temps restant : "+tempsRestant);
+        timer = setInterval(chronometre, 500);
+    }
+
+
+    function finChrono(){
+        arreterChrono();
+        perdu();
+    }
+
+    function arreterChrono(){
+        clearInterval(timer);
+        timer = null;
+        $('#temps').text("Temps restant : ");
+        tempsRestant = 10;
+    }
+
+    function chronometre(){
+        tempsRestant -= 0.5;
+        $('#temps').text("Temps restant : "+tempsRestant);
+        if(tempsRestant <= 0) finChrono();
     }
 
 
     function rejouer(){
 
-        var nbCartesVisibles = 0;
+        nbCartesVisibles = 0;
         Carte1 = "";
         Carte2 = "";
+        score = 0;
+        nbClic = 0;
+        arreterChrono();
 
         $('.carte').remove();
         generer_plateau();
         //console.log(ensembleDesCartes);
     }
+
+    // EVENEMENTS ////////////////////////////////////////////////////////////////////////
+    // Ici, on va déclarer tous les évènements qui vont avoir une action sur le jeu
 
 
     $('.plateau').on('click', '.carte', function(){
