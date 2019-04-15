@@ -34,4 +34,16 @@ body div.container .informations {
   opacity: 0.5;
 }
 
+.jauge {
+  max-width: 650px;
+  margin: 0 auto;
+  height: 50px;
+  background: #b0cfe9;
+}
+
+#barreProgression {
+  height: 50px;
+  background: #245985;
+}
+
 /*# sourceMappingURL=style.css.map */

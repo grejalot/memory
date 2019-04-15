@@ -10,7 +10,9 @@ $(document).ready(function(){
     var Carte2 = new Object();
     var score = 0;
     var nbCartes = 12;
-    var tempsRestant = 10;
+    var dureeChrono = 10;
+    var tempsRestant = null;
+    var pourcentageProgression = null;
     var nbClic = 0;
     var timer = null;
 
@@ -45,6 +47,9 @@ $(document).ready(function(){
 
             //console.log(fruits);
 
+            tempsRestant = dureeChrono;
+            pourcentageProgression = (tempsRestant*100)/dureeChrono;
+            $('#barreProgression').width(pourcentageProgression+"%");
 
         }
     }
@@ -164,7 +169,7 @@ $(document).ready(function(){
 
     function lancerChrono(){
         $('#temps').text("Temps restant : "+tempsRestant);
-        timer = setInterval(chronometre, 500);
+        timer = setInterval(chronometre, 50);
     }
 
 
@@ -177,12 +182,16 @@ $(document).ready(function(){
         clearInterval(timer);
         timer = null;
         $('#temps').text("Temps restant : ");
-        tempsRestant = 10;
+        tempsRestant = dureeChrono;
     }
 
     function chronometre(){
-        tempsRestant -= 0.5;
-        $('#temps').text("Temps restant : "+tempsRestant);
+        tempsRestant -= 0.05;
+        $('#temps').text("Temps restant : "+Math.round(tempsRestant));
+
+        pourcentageProgression = (tempsRestant*100)/dureeChrono;
+
+        $('#barreProgression').width(pourcentageProgression+"%");
         if(tempsRestant <= 0) finChrono();
     }
 
