@@ -11,8 +11,8 @@ $(document).ready(function(){
     
     // Dans cette première partie du fichier, on va déclarer toutes les variables qui vont nous servir pour le jeu
 
-    var nbCartes = 6;                       // Le nombre de carte que va contenir notre partie
-    var dureeChrono = 3;                   // La durée du temps imparti pour finir le jeu, en seconde.
+    var nbCartes = 12;                      // Le nombre de carte que va contenir notre partie
+    var dureeChrono = 10;                   // La durée du temps imparti pour finir le jeu, en seconde.
 
     var ensembleDesCartes = new Object();   // Un objet qui va contenir l'ensemble de notre jeu de carte
     var Carte1 = new Object();              // Un objet qui va contenir la 1ère carte retournée lors d'une comparaison de deux cartes
@@ -455,19 +455,31 @@ $(document).ready(function(){
         On empêche donc son action par défaut
         */
         e.preventDefault();
-    
+
         //on récupère ce que le joueur a rentré dans le formulaire
-        var pseudoJoueur = encodeURIComponent( $('#pseudoJoueur').val() );
+        var pseudoJoueur = $('#pseudoJoueur').val();
 
         if(partieGagnee==true){ // on vérifie que la partie est gagnée à cet instant
 
             if(scoreJoueur != 0){ // on vérifie ensuite que le score est valide (pour empêcher les multiples inscriptions)
 
-                if(pseudoJoueur != ""){ // on vérifie que joueur a bien tapé son pseudo
+                if(pseudoJoueur != ""){ // on vérifie que le joueur a bien tapé son pseudo
 
-                    // On lance alors la fonction, puis on rafraîchit la liste des scores
-                    sauvegarderScore(pseudoJoueur,scoreJoueur);
-                    afficherScores();
+                    /* On effecture une  vérification par expression régulière que le joueur n'a pas mis
+                    de caractères spéciaux dans le formulaire, avec la fonction test()
+                    Le joueur ne peut renseigner que des lettres (majuscules, minuscules, accentuées etc.) et des chiffres, par sécurité
+                    */
+                    var regex = new RegExp("^[a-zA-ZÀ-ÿ0-9]*$");
+
+                    if(regex.test(pseudoJoueur)){
+
+                        // On lance alors la fonction, puis on rafraîchit la liste des scores
+                        sauvegarderScore(pseudoJoueur,scoreJoueur);
+                        afficherScores();
+    
+                    }else{
+                         $("#felicitations").text("Le pseudo contient des caractères interdits"); // si pseudo contient des caractères spéciaux
+                    }
 
                 }else{
                      $("#felicitations").text("Le nom du pseudo n'est pas renseigné"); // si le nom du joueur n'est pas renseigné
@@ -478,6 +490,7 @@ $(document).ready(function(){
         }else{
             $("#felicitations").text("La partie n'est pas gagnée."); // si la partie n'est pas gagnée
         }
+
     });
     
 });
