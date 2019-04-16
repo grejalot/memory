@@ -8,13 +8,16 @@ $(document).ready(function(){
     var nbCartesVisibles = 0;
     var Carte1 = new Object();
     var Carte2 = new Object();
-    var score = 0;
-    var nbCartes = 12;
-    var dureeChrono = 5;
-    var tempsRestant = null;
+    var pairesValidees = 0;
+    var nbCartes = 6;
+    var dureeChrono = 10;
+    var tempsAffiche = 0;
+    var tempsEcoule = 0;
+    var scoreJoueur = 0;
     var pourcentageProgression = null;
     var nbClic = 0;
     var timer = null;
+    var partieGagnee = false;
 
     // FONCTIONS /////////////////////////////////////////////////////////////////////////
     // Ici, on va déclarer toutes les fonctions du jeu (mélange des cartes, score, timer etc.)
@@ -47,9 +50,7 @@ $(document).ready(function(){
 
             //console.log(fruits);
 
-            tempsRestant = dureeChrono;
-            pourcentageProgression = (tempsRestant*100)/dureeChrono;
-            $('#barreProgression').width(pourcentageProgression+"%");
+            $('#barreProgression').width("100%");
 
         }
     }
@@ -128,8 +129,8 @@ $(document).ready(function(){
         nbCartesVisibles=0;
         Carte1 = "";
         Carte2 = "";
-        score ++;
-        if(score==(nbCartes/2)){
+        pairesValidees ++;
+        if(pairesValidees==(nbCartes/2)){
             gagne();
         }
     }
@@ -149,7 +150,10 @@ $(document).ready(function(){
 
 
     function gagne(){
+        scoreJoueur = tempsAffiche;
         arreterChrono();
+        partieGagnee = true;
+        $('#scoreJoueur').text("Score : "+scoreJoueur);
         alert('Gagné !')
     }
 
@@ -159,7 +163,7 @@ $(document).ready(function(){
         nbCartesVisibles = 0;
         Carte1 = "";
         Carte2 = "";
-        score = 0;
+        pairesValidees = 0;
         nbClic = 0;
 
         $('.carte').remove();
@@ -168,7 +172,7 @@ $(document).ready(function(){
     }
 
     function lancerChrono(){
-        $('#temps').text("Temps restant : "+tempsRestant);
+        $('#temps').text("Temps restant : "+tempsEcoule);
         timer = setInterval(chronometre, 10);
     }
 
@@ -182,17 +186,19 @@ $(document).ready(function(){
         clearInterval(timer);
         timer = null;
         $('#temps').text("Temps restant : ");
-        tempsRestant = dureeChrono;
+        tempsEcoule = 0;
+        tempsAffiche = 0;
     }
 
     function chronometre(){
-        tempsRestant -= 0.01;
-        $('#temps').text("Temps restant : "+Math.round(tempsRestant));
+        tempsEcoule += 0.01
+        tempsAffiche = (Math.round(tempsEcoule*100))/100;
+        $('#temps').text("Temps restant : "+tempsAffiche);
 
-        pourcentageProgression = (tempsRestant*100)/dureeChrono;
+        pourcentageProgression = 100-((tempsEcoule*100)/dureeChrono);
 
         $('#barreProgression').width(pourcentageProgression+"%");
-        if(tempsRestant <= 0) finChrono();
+        if(tempsEcoule >= dureeChrono) finChrono();
     }
 
 
@@ -201,8 +207,12 @@ $(document).ready(function(){
         nbCartesVisibles = 0;
         Carte1 = "";
         Carte2 = "";
-        score = 0;
+        pairesValidees = 0;
         nbClic = 0;
+
+        partieGagnee = false;
+        scoreJoueur = 0;
+        $('#scoreJoueur').text("");
         arreterChrono();
 
         $('.carte').remove();
@@ -211,28 +221,35 @@ $(document).ready(function(){
     }
 
     function afficherScores(){
+         $("#tableauScores").load('php/meilleursscores.php');
+    }
+
+    function sauvegarderScore(joueur,score){
 
         $.post(
-            'php/meilleursscores.php', // Un script PHP que l'on va créer juste après
-            {/*
-                username : $("#username").val(),  // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php
-                password : $("#password").val()*/
+            'php/sauvegarderscore.php', // Un script PHP que l'on va créer juste après
+            {
+                pseudoJoueur : joueur,  // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php
+                scoreJoueur : score
             },
 
             function(data){ // Cette fonction ne fait rien encore, nous la mettrons à jour plus tard
-
-                $("#tableauScores").text(data);
-
+                if(data=="ok"){
+                    $("#felicitations").text("Félicitations ! Ton score a bien été ajouté !");
+                    scoreJoueur = 0;
+                    $('#scoreJoueur').text("Score : ");
+                }else{
+                    $("#felicitations").html(data);
+                }
             },
 
-            'html' // Nous souhaitons recevoir "Success" ou "Failed", donc on indique text !
+            'text' // Nous souhaitons recevoir le texte de retour de la fonction
          );
-        
+
     }
 
-    function afficherScores(){
-         $("#tableauScores").load('php/meilleursscores.php');;
-    }
+
+
 
     // EVENEMENTS ////////////////////////////////////////////////////////////////////////
     // Ici, on va déclarer tous les évènements qui vont avoir une action sur le jeu
@@ -249,6 +266,32 @@ $(document).ready(function(){
     $('#rejouer').click(function(){
         rejouer();
     });
+
+    $('.formulaire').on('click', '#envoi', function(e){
+        e.preventDefault(); // on empêche le bouton d'envoyer le formulaire
+    
+        var pseudoJoueur = encodeURIComponent( $('#pseudoJoueur').val() ); // on sécurise les données
+
+        if(partieGagnee==true){ // on vérifie que la partie est gagnée à cet instant
+
+            if(scoreJoueur != 0){ // on vérifie que le score est valide
+
+                if(pseudoJoueur != ""){ // on vérifie que les variables ne sont pas vides
+                    sauvegarderScore(pseudoJoueur,scoreJoueur);
+                    afficherScores();
+                }else{
+                    $("#felicitations").text("Le nom du pseudo n'est pas renseigné");
+                }
+
+            }else{
+                $("#felicitations").text("Vous n'avez pas de score");
+            }
+
+        }else{
+            $("#felicitations").text("La partie n'est pas gagnée.");
+        }
+    });
+    
 
 
 });

@@ -12,17 +12,32 @@
 
 <body>    
     <div id="tableauScores"></div>
+
     <div class="container">
+
         <h1>Memory</h1>
+
         <div class="informations">
             <p id="temps">Temps restant :</p>
             <p>Score : </p>
             <p id="rejouer">Rejouer</p>
         </div>
+
         <div class="jauge">
             <div id="barreProgression"></div>
         </div>
-        <div class="plateau">
+
+        <div class="plateau"></div>
+
+        <div class="formulaire">
+
+            <form method="POST" action="php/sauvegarderscore.php">
+                Pseudo : <input type="text" name="pseudoJoueur" id="pseudoJoueur" /></input>
+                <input type="submit" name="submit" value="Sauvegarder" id="envoi" />
+                <div id="scoreJoueur"></div>
+            </form>
+            <div id="felicitations"></div>
+
         </div>
     </div>
     
