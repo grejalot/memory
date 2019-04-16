@@ -2,7 +2,7 @@
 $(document).ready(function(){
 
     // VARIABLES /////////////////////////////////////////////////////////////////////////
-    //Ici, on va déclarer toutes les variables qui vont nous servir pour l'exercice
+    // Ici, on va déclarer toutes les variables qui vont nous servir pour l'exercice
 
     var ensembleDesCartes = new Object();
     var nbCartesVisibles = 0;
@@ -10,14 +10,14 @@ $(document).ready(function(){
     var Carte2 = new Object();
     var score = 0;
     var nbCartes = 12;
-    var dureeChrono = 10;
+    var dureeChrono = 5;
     var tempsRestant = null;
     var pourcentageProgression = null;
     var nbClic = 0;
     var timer = null;
 
     // FONCTIONS /////////////////////////////////////////////////////////////////////////
-    //Ici, on va déclarer toutes les fonctions du jeu (mélange des cartes, score, timer etc.)
+    // Ici, on va déclarer toutes les fonctions du jeu (mélange des cartes, score, timer etc.)
 
     function generer_plateau(){ 
         
@@ -210,8 +210,34 @@ $(document).ready(function(){
         //console.log(ensembleDesCartes);
     }
 
+    function afficherScores(){
+
+        $.post(
+            'php/meilleursscores.php', // Un script PHP que l'on va créer juste après
+            {/*
+                username : $("#username").val(),  // Nous récupérons la valeur de nos inputs que l'on fait passer à connexion.php
+                password : $("#password").val()*/
+            },
+
+            function(data){ // Cette fonction ne fait rien encore, nous la mettrons à jour plus tard
+
+                $("#tableauScores").text(data);
+
+            },
+
+            'html' // Nous souhaitons recevoir "Success" ou "Failed", donc on indique text !
+         );
+        
+    }
+
+    function afficherScores(){
+         $("#tableauScores").load('php/meilleursscores.php');;
+    }
+
     // EVENEMENTS ////////////////////////////////////////////////////////////////////////
     // Ici, on va déclarer tous les évènements qui vont avoir une action sur le jeu
+
+    afficherScores();
 
 
     $('.plateau').on('click', '.carte', function(){

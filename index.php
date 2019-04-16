@@ -1,9 +1,3 @@
-<?php
-
-require_once 'php/functions.php'; 
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,10 +7,11 @@ require_once 'php/functions.php';
     <title>Memory - Test technique O'clock</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascript/script.js"></script>
 </head>
 
-<body>
-    <?php meilleursScores(); ?>
+<body>    
+    <div id="tableauScores"></div>
     <div class="container">
         <h1>Memory</h1>
         <div class="informations">
@@ -30,7 +25,6 @@ require_once 'php/functions.php';
         <div class="plateau">
         </div>
     </div>
-    <script type="text/javascript" src="javascript/script.js"></script>
     
 </body>
 </html>
