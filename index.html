@@ -5,13 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Memory - Test technique O'clock</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascript/script.js"></script>
+
+    
+    <link rel="stylesheet" href="css/style.css"><!-- On va chercher la feuille css de notre site-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><!-- On importe directement la bibliothèque jQuery, pour ne pas avoir à stocker les fichiers sur notre site -->
+    
+    <script type="text/javascript" src="javascript/script.js"></script><!-- On va chercher le fichier contenant notre code JavaScript -->
+
 </head>
 
-<body>    
-    <div id="tableauScores"></div>
+<body>
+
+    <!-- Le fichier HTML est très classique, on va gérer toutes les action du joueur via le fichier JS -->
 
     <div class="container">
 
@@ -19,23 +25,26 @@
 
         <div class="informations">
             <p id="temps">Temps restant :</p>
-            <p>Score : </p>
             <p id="rejouer">Rejouer</p>
         </div>
 
         <div class="jauge">
             <div id="barreProgression"></div>
         </div>
-
+        
+        <!-- Le plateau est vide au départ, les cartes seront générées aléatoirement à chaque partie -->
         <div class="plateau"></div>
+
+        <div id="tableauScores"></div>
 
         <div class="formulaire">
 
-            <form method="POST" action="php/sauvegarderscore.php">
+            <form method="POST" action="php/sauvegarderscore.php"><!-- Ce formulaire va nous permettre d'inscire le score d'une partie gagnée dans la base de données, en AJAX -->
                 Pseudo : <input type="text" name="pseudoJoueur" id="pseudoJoueur" /></input>
                 <input type="submit" name="submit" value="Sauvegarder" id="envoi" />
                 <div id="scoreJoueur"></div>
             </form>
+
             <div id="felicitations"></div>
 
         </div>
