@@ -8,6 +8,7 @@
 
     
     <link rel="stylesheet" href="css/style.css"><!-- On va chercher la feuille css de notre site-->
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Montserrat" rel="stylesheet">    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><!-- On importe directement la bibliothèque jQuery, pour ne pas avoir à stocker les fichiers sur notre site -->
     
@@ -19,34 +20,54 @@
 
     <!-- Le fichier HTML est très classique, on va gérer toutes les action du joueur via le fichier JS -->
 
-    <div class="container">
+    <div class="content">
 
         <h1>Memory</h1>
-
-        <div class="informations">
-            <p id="temps"></p>
-            <p id="rejouer">Rejouer</p>
-        </div>
-
-        <div class="jauge">
-            <div id="barreProgression"></div>
-        </div>
         
-        <!-- Le plateau est vide au départ, les cartes seront générées aléatoirement à chaque partie -->
-        <div class="plateau"></div>
+        <div class="interface">
 
-        <div id="tableauScores"></div>
+            <div class="gauche">
 
-        <div class="formulaire">
+                <div class="informations">
+                    <div id="rejouer">Jouer</div>
+                </div>
 
-            <form method="POST" action=""><!-- Ce formulaire va nous permettre d'inscire le score d'une partie gagnée dans la base de données, en AJAX -->
-                Pseudo : <input type="text" name="pseudoJoueur" id="pseudoJoueur" /></input>
-                <input type="submit" name="submit" value="Sauvegarder" id="envoi" />
-                <div id="scoreJoueur"></div>
-            </form>
+                <div id="tableauScores">
+                    <h2>Meilleurs scores</h2>
+                    <div id="affichageScores"></div>
+                </div>
 
-            <div id="felicitations"></div>
+            </div>
 
+            <div class="droite">
+
+                <div class="jauge">
+                    <div id="barreProgression"></div>
+                    <div id="temps"></div>
+                </div>
+                
+                <!-- Le plateau est vide au départ, les cartes seront générées aléatoirement à chaque partie -->
+                <div class="plateau"></div>
+        
+                <div id="encart_victoire">
+                    <div class="formulaire">
+            
+                        <form method="POST" action=""><!-- Ce formulaire va nous permettre d'inscire le score d'une partie gagnée dans la base de données, en AJAX -->
+                            Pseudo : <input type="text" name="pseudoJoueur" id="pseudoJoueur" /></input>
+                            <input type="submit" name="submit" value="Sauvegarder" id="envoi" />
+                            <div id="scoreJoueur"></div>
+                        </form>
+            
+                        <div id="felicitations"></div>
+            
+                    </div>
+                </div>
+        
+                <div id="encart_defaite">
+                    Vous avez perdu... :'(
+                </div>
+
+            </div>
         </div>
     </div>
     

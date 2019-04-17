@@ -20,7 +20,7 @@ Pour chaque entrée, on va extraire un tableau $joueur qui contient les valeurs 
 while ($joueur = $meilleursJoueurs->fetch()){
 
     //ici, on choisit d'afficher le contenu du champ "nom", puis celui du champ "score", de l'entrée en train d'être traitée par la boucle
-    echo $joueur['nom']." : ".$joueur['score'].'<br />';
+    echo "<div class='ligne_joueur'><div class='joueur'>".$joueur['nom']."</div><div class='score'>".$joueur['score']."</div></div>";
 }
 
 // Une fois la boucle terminée, on clôt le traitement de la requête

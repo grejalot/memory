@@ -11,8 +11,8 @@ $(document).ready(function(){
     
     // Dans cette première partie du fichier, on va déclarer toutes les variables qui vont nous servir pour le jeu
 
-    var nbCartes = 12;                      // Le nombre de carte que va contenir notre partie
-    var dureeChrono = 10;                   // La durée du temps imparti pour finir le jeu, en seconde.
+    var nbCartes = 36;                      // Le nombre de carte que va contenir notre partie
+    var dureeChrono = 90;                   // La durée du temps imparti pour finir le jeu, en seconde.
 
     var ensembleDesCartes = new Object();   // Un objet qui va contenir l'ensemble de notre jeu de carte
     var Carte1 = new Object();              // Un objet qui va contenir la 1ère carte retournée lors d'une comparaison de deux cartes
@@ -89,7 +89,7 @@ $(document).ready(function(){
             ensembleDesCartes[numeroCarte] = carte;
 
             // Affiche le numéro du fruit directement sur la carte sans la retourner. Utile en pré-prod
-            $('#carte_'+i).text(fruit);
+            //$('#carte_'+i).text(fruit);
 
             // Pour finir, on fixe la barre du timer à 100%
             $('#barreProgression').width("100%");
@@ -132,8 +132,9 @@ $(document).ready(function(){
 
                 $(idCarte).removeClass("masquee").addClass("visible");
                 
-                var fond = -(Carte1.fruit)*100;
-                $(idCarte).css("background-position", "center "+fond+"px");
+                var fond = (-(Carte1.fruit)*100); // décalage pour une carte de pour 100px
+                var fondProportionnel = ($(idCarte).width())*fond/100; // décalage proportionnel à la taille de la carte
+                $(idCarte).css("background-position", "center "+fondProportionnel+"px");
 
                 // On incrément alors le nombre de cartes visible, qui passe de 0 à 1.
                 nbCartesVisibles++;
@@ -150,7 +151,8 @@ $(document).ready(function(){
                 $(idCarte).removeClass("masquee").addClass("visible");
 
                 var fond = -(Carte2.fruit)*100;
-                $(idCarte).css("background-position", "center "+fond+"px");
+                var fondProportionnel = ($(idCarte).width())*fond/100; // décalage proportionnel à la taille de la carte
+                $(idCarte).css("background-position", "center "+fondProportionnel+"px");
 
                 // Le nombre de cartes visibles passe de 1 à 2
                 nbCartesVisibles++;
@@ -236,7 +238,7 @@ $(document).ready(function(){
     function lancerChrono(){
 
         // On affiche le chrono pour le joueur
-        $('#temps').text("Temps restant : "+tempsEcoule);
+        $('#temps').text(tempsEcoule);
 
         /* La ligne ci-dessous signifie qu'à partir de maintenant, l'objet timer lance la fonctione chronometre()
         toutes les 10 millièmes de s (toutes les 0.01s)
@@ -255,7 +257,7 @@ $(document).ready(function(){
 
         // On affiche au joueur la variable tempsAffiche, qui est simplement la variable tempsEcoule arrondie à 2 chiffres après la virgule 
         tempsAffiche = (Math.round(tempsEcoule*100))/100;
-        $('#temps').text("Temps restant : "+tempsAffiche);
+        $('#temps').text(tempsAffiche);
 
         /* On calcule ici le pourcentage de temps restant, pour l'appliquer à la jauge du timer.
         Pour ça, on fait un produit en croix avec le temps écoulé et la durée initiale du chrono, puis on soustrait à 100
@@ -284,7 +286,7 @@ $(document).ready(function(){
         // on réinitialise les variables de temps pour une prochaine partie, et on supprime l'affiche du temps pour le joueur
         tempsEcoule = 0;
         tempsAffiche = 0;
-        $('#temps').text("Temps restant : ");
+        $('#temps').text("");
     }
 
 
@@ -300,7 +302,11 @@ $(document).ready(function(){
         arreterChrono();
         partieGagnee = true;
 
-        alert('Gagné !')
+        // On change aussi le texte du bouton en "rejouer" pour plus de cohérence
+        $('#rejouer').text('Rejouer');
+
+        // on affiche l'encart de victoire, avec la sauvegarde de score
+        $('#encart_victoire').css("display", "block");
     }
 
 
@@ -321,7 +327,11 @@ $(document).ready(function(){
         // On enlève toutes les cartes du plateau pour éviter que le joueur continue quand même
         $('.carte').remove();
 
-        alert('Perdu !')
+        // On change aussi le texte du bouton en "rejouer" pour plus de cohérence
+        $('#rejouer').text('Rejouer');
+
+        // on affiche l'encart de défaite
+        $('#encart_defaite').css("display", "block");
     }
 
 
@@ -343,6 +353,10 @@ $(document).ready(function(){
         // On arrête le chrono s'il était en route (si le joueur relance une partie alors qu'il était déjà dans une partie)
         arreterChrono();
 
+        // on masque les encarts de victoire ou de défaite s'ils étaient affichés
+        $('#encart_victoire').removeAttr('style');
+        $('#encart_defaite').removeAttr('style');
+
         // On supprimer les cartes du plateau et on le génère à nouveau
         $('.carte').remove();
         generer_plateau();
@@ -355,10 +369,10 @@ $(document).ready(function(){
     function afficherScores(){
 
         /* Petit bout de code, mais moins simple qu'il n'en a l'air.
-        Ici, on utilise AJAX pour afficher dynamiquement le résultat du fichier PHP meilleursscores.php dans la div #tableauScores
+        Ici, on utilise AJAX pour afficher dynamiquement le résultat du fichier PHP meilleursscores.php dans la div #affichageScores
         Le tout se fait grâce à la méthode load() de jQuery, utile ici car on n'a pas besoin d'envoyer de variables pour notre demande
         */
-         $("#tableauScores").load('php/meilleursscores.php');
+         $("#affichageScores").load('php/meilleursscores.php');
     }
 
 
@@ -440,9 +454,13 @@ $(document).ready(function(){
 
 
     // On lance ou relance une partie avec la fonction rejouer() quand le joueur clique sur le bouton "Rejouer"
+    // On change aussi le texte du bouton en "relancer" pour plus de cohérence
 
     $('#rejouer').click(function(){
+
+        $('#rejouer').text('Relancer');
         rejouer();
+
     });
 
 
