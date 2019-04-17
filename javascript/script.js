@@ -11,8 +11,8 @@ $(document).ready(function(){
     
     // Dans cette première partie du fichier, on va déclarer toutes les variables qui vont nous servir pour le jeu
 
-    var nbCartes = 36;                      // Le nombre de carte que va contenir notre partie
-    var dureeChrono = 90;                   // La durée du temps imparti pour finir le jeu, en seconde.
+    var nbCartes = 2;                      // Le nombre de carte que va contenir notre partie
+    var dureeChrono = 3;                   // La durée du temps imparti pour finir le jeu, en seconde.
 
     var ensembleDesCartes = new Object();   // Un objet qui va contenir l'ensemble de notre jeu de carte
     var Carte1 = new Object();              // Un objet qui va contenir la 1ère carte retournée lors d'une comparaison de deux cartes
@@ -487,9 +487,9 @@ $(document).ready(function(){
 
                     /* On effecture une  vérification par expression régulière que le joueur n'a pas mis
                     de caractères spéciaux dans le formulaire, avec la fonction test()
-                    Le joueur ne peut renseigner que des lettres (majuscules, minuscules, accentuées etc.) et des chiffres, par sécurité
+                    Le joueur ne peut renseigner que des lettres (majuscules, minuscules, accentuées etc.), des chiffres et des espaces
                     */
-                    var regex = new RegExp("^[a-zA-ZÀ-ÿ0-9]*$");
+                    var regex = new RegExp("^[a-zA-ZÀ-ÿ0-9\\s]*$");
 
                     if(regex.test(pseudoJoueur)){
 

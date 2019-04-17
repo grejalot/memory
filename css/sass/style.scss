@@ -1,3 +1,9 @@
+$vert:#1b6241;
+$rouge:#9f232a;
+$blanc:#fff;
+$shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+$font-titre:'Lobster', cursive;
+
 html{
     height: 100%;
     background: rgb(243, 255, 243);
@@ -11,21 +17,21 @@ body{
 
     %titre{
         text-align: center;
-        font-family: 'Lobster', cursive;
+        font-family: $font-titre;
     }
 
     h1{
         @extend %titre;
         font-size: 3em;
-        color: #1b6241;
+        color: $vert;
     }
 
     h2{
         @extend %titre;
         font-size: 1.6em;
         line-height: 3em;
-        color:#fff;
-        background: #1b6241;
+        color:$blanc;
+        background: $vert;
     }
 
 }
@@ -40,8 +46,8 @@ div.interface{
         box-sizing: border-box;
         margin: 0 1%;
         padding: 0 0 10px 0;
-        background: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        background: $blanc;
+        box-shadow: $shadow;
         position: relative;
     }
 
@@ -55,7 +61,7 @@ div.interface{
         @extend %colonne;
         width: 68%;
         min-height: 670px;
-        background: url(../images/background_plateau.jpg) #fff no-repeat right bottom;
+        background: url(../images/background_plateau.jpg) $blanc no-repeat right bottom;
     }
 
     .plateau{
@@ -74,8 +80,8 @@ div.interface{
 %btn{
     width: 80%;
     margin: 1em auto;
-    color: #fff;
-    background: #9f232a;
+    color: $blanc;
+    background: $rouge;
     border-radius: 50px;
     line-height: 50px;
     text-align: center;
@@ -86,9 +92,9 @@ div.interface{
     cursor: pointer;
 
     &:hover{
-        background: #fff;
-        color: #800b12;
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        background: $blanc;
+        color: darken($rouge, 5);
+        box-shadow: $shadow;
     }
 
 }
@@ -114,7 +120,6 @@ div.interface{
         float: left;
         box-sizing: border-box;
         margin: 0;
-        color: #45936c;
         text-align: center;
     }
 
@@ -122,8 +127,8 @@ div.interface{
         @extend %label;
         width: 67%;
         font-size: 0.8em;
-        background: #55a87e;
-        color: #1b6241;
+        background: lighten($vert, 50);
+        color: $vert;
         border-radius: 50px 0 0 50px;
     }
 
@@ -132,10 +137,10 @@ div.interface{
         width: 33%;
         font-weight: bold;
         font-size: 1.2em;
-        background: #1b6241;
-        color: #fff;
+        background: $vert;
+        color: $blanc;
         border-radius: 0 50px 50px 0;
-        font-family: 'Lobster', cursive;
+        font-family: $font-titre;
     }
 
 }
@@ -144,7 +149,7 @@ div.interface{
     display: inline-block;
     width: 80px;
     height: 80px;
-    background-color: #fff;
+    background-color: $blanc;
     background-size: 100% auto;
     cursor: pointer;
     border: none;
@@ -154,7 +159,7 @@ div.interface{
     transition: box-shadow .1s linear;
 
     &:hover{
-        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        box-shadow: $shadow;
     }
 
     &.masquee{
@@ -167,7 +172,7 @@ div.interface{
     &.validee{
         background-image: url(../images/cards.png);
         opacity: .5;
-        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+        box-shadow: $shadow;
     }
 }
 
@@ -183,13 +188,13 @@ div.interface{
     @extend %formejauge;
     width: 530px;
     margin: 1em auto;
-    background: #f37a81;
+    background: lighten($rouge, 35);
     position: relative;
     
 
     #barreProgression{
         @extend %formejauge;
-        background: #9f232a;
+        background: $rouge;
     }
 
     #temps{
@@ -197,8 +202,8 @@ div.interface{
         position: absolute;
         top: 0;
         width: 100%;
-        color: #fff;
-        font-family: 'Lobster', cursive;
+        color: $blanc;
+        font-family: $font-titre;
     }
 }
 
@@ -214,35 +219,35 @@ div.interface{
 }
 
 %issues_parties{
-    font-family: 'Lobster', cursive;
+    font-family: $font-titre;
     font-size: 2em;
     margin: 1em 0 0.5em;
 }
 
 #encart_victoire{
     @extend %encarts_de_fin;
-    background: rgba(27,98,65,0.9);
+    background: rgba($vert, 0.9);
 
     .formulaire{
         position: absolute;
         top: 50%;
         left: 50%;
         width: 50%;
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        box-shadow: $shadow;
         transform: translate(-50%, -50%);
-        background: #fff;
+        background: $blanc;
         padding: 0 20px;
         box-sizing: border-box;
     }
 
     .issuePartie{
         @extend %issues_parties;
-        color: #9f232a;
+        color: $rouge;
     }
 
     #scoreJoueur{
-        font-family: 'Lobster', cursive;
-        color: rgba(27,98,65,0.9);
+        font-family: $font-titre;
+        color: $vert;
         font-weight: bold;
         font-size: 3em;
     }
@@ -256,7 +261,7 @@ div.interface{
         line-height: 50px;
         font-size: 1.2em;
         text-align: center;
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        box-shadow: $shadow;
                 
     }
 
@@ -271,19 +276,19 @@ div.interface{
 
 #encart_defaite{
     @extend %encarts_de_fin;
-    background: rgba(159,35,42,0.9);
+    background: rgba($rouge, 0.9);
 
     .defaite_content{
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: #fff;
+        color: $blanc;
     }
 
     .issuePartie{
         @extend %issues_parties;
-        color: #fff;
+        color: $blanc;
     }
 }
 
