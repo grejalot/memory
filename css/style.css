@@ -1,6 +1,6 @@
 html {
   height: 100%;
-  background: url(../images/background.jpg) #eee no-repeat center bottom;
+  background: #f3fff3;
 }
 
 body {
@@ -44,6 +44,7 @@ div.interface .gauche {
 div.interface .droite {
   width: 68%;
   min-height: 670px;
+  background: url(../images/background_plateau.jpg) #fff no-repeat right bottom;
 }
 div.interface .plateau {
   width: 100%;
@@ -54,7 +55,7 @@ div.interface .informations {
   margin: 0 auto;
 }
 
-#rejouer {
+#encart_victoire input[type=submit], #rejouer {
   width: 80%;
   margin: 1em auto;
   color: #fff;
@@ -68,14 +69,16 @@ div.interface .informations {
   transition: all 0.1s linear;
   cursor: pointer;
 }
-#rejouer:hover {
-  background: #800b12;
+#encart_victoire input[type=submit]:hover, #rejouer:hover {
+  background: #fff;
+  color: #800b12;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .ligne_joueur {
   height: 40px;
   line-height: 40px;
-  width: 80%;
+  width: 90%;
   margin: 0 auto 15px;
 }
 .ligne_joueur .score, .ligne_joueur .joueur {
@@ -86,13 +89,14 @@ div.interface .informations {
   text-align: center;
 }
 .ligne_joueur .joueur {
-  width: 60%;
+  width: 67%;
+  font-size: 0.8em;
   background: #55a87e;
   color: #1b6241;
   border-radius: 50px 0 0 50px;
 }
 .ligne_joueur .score {
-  width: 40%;
+  width: 33%;
   font-weight: bold;
   font-size: 1.2em;
   background: #1b6241;
@@ -111,6 +115,10 @@ div.interface .informations {
   border: none;
   margin: 5px;
   background-image: url(../images/back_card.jpg);
+  transition: box-shadow 0.1s linear;
+}
+.carte:hover {
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 .carte.visible {
   background-image: url(../images/cards.png);
@@ -118,13 +126,13 @@ div.interface .informations {
 .carte.validee {
   background-image: url(../images/cards.png);
   opacity: 0.5;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .jauge #temps, .jauge #barreProgression, .jauge {
   height: 50px;
   line-height: 50px;
   text-align: center;
-  text-transform: uppercase;
   font-size: 1.2em;
   font-weight: bold;
 }
@@ -153,6 +161,13 @@ div.interface .informations {
   bottom: 0;
   left: 0;
   right: 0;
+  text-align: center;
+}
+
+#encart_defaite .issuePartie, #encart_victoire .issuePartie {
+  font-family: "Lobster", cursive;
+  font-size: 2em;
+  margin: 1em 0 0.5em;
 }
 
 #encart_victoire {
@@ -165,10 +180,55 @@ div.interface .informations {
   width: 50%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+#encart_victoire .issuePartie {
+  color: #9f232a;
+}
+#encart_victoire #scoreJoueur {
+  font-family: "Lobster", cursive;
+  color: rgba(27, 98, 65, 0.9);
+  font-weight: bold;
+  font-size: 3em;
+}
+#encart_victoire input[type=text] {
+  width: 80%;
+  border: none;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 50px;
+  line-height: 50px;
+  font-size: 1.2em;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+#encart_victoire input[type=submit] {
+  padding: 0;
+  border: none;
+  margin-bottom: 0;
 }
 
 #encart_defaite {
   background: rgba(159, 35, 42, 0.9);
+}
+#encart_defaite .defaite_content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+#encart_defaite .issuePartie {
+  color: #fff;
+}
+
+#felicitations {
+  min-height: 3em;
+  font-size: 0.7em;
+  line-height: 1.5em;
+  margin: 0 0 1.5em;
 }
 
 /*# sourceMappingURL=style.css.map */

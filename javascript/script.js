@@ -91,8 +91,9 @@ $(document).ready(function(){
             // Affiche le numéro du fruit directement sur la carte sans la retourner. Utile en pré-prod
             //$('#carte_'+i).text(fruit);
 
-            // Pour finir, on fixe la barre du timer à 100%
+            // Pour finir, on fixe la barre du timer à 100% et on affiche un message de départ
             $('#barreProgression').width("100%");
+            $('#temps').text("Cliquez sur une carte pour commencer");
 
         }
     }
@@ -355,6 +356,7 @@ $(document).ready(function(){
 
         // on masque les encarts de victoire ou de défaite s'ils étaient affichés
         $('#encart_victoire').removeAttr('style');
+        $("#felicitations").text("");
         $('#encart_defaite').removeAttr('style');
 
         // On supprimer les cartes du plateau et on le génère à nouveau
@@ -496,7 +498,7 @@ $(document).ready(function(){
                         afficherScores();
     
                     }else{
-                         $("#felicitations").text("Le pseudo contient des caractères interdits"); // si pseudo contient des caractères spéciaux
+                         $("#felicitations").text("Le pseudo contient des caractères interdits. Utilisez uniquement chiffres, lettres et espaces."); // si pseudo contient des caractères spéciaux
                     }
 
                 }else{

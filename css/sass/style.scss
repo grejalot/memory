@@ -1,6 +1,6 @@
 html{
     height: 100%;
-    background: url(../images/background.jpg) #eee no-repeat center bottom;
+    background: rgb(243, 255, 243);
 }
 
 body{
@@ -55,6 +55,7 @@ div.interface{
         @extend %colonne;
         width: 68%;
         min-height: 670px;
+        background: url(../images/background_plateau.jpg) #fff no-repeat right bottom;
     }
 
     .plateau{
@@ -70,7 +71,7 @@ div.interface{
 
 }
 
-#rejouer{
+%btn{
     width: 80%;
     margin: 1em auto;
     color: #fff;
@@ -85,8 +86,15 @@ div.interface{
     cursor: pointer;
 
     &:hover{
-        background: #800b12;
+        background: #fff;
+        color: #800b12;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
+
+}
+
+#rejouer{
+    @extend %btn;
 }
 
 #tableauScores{
@@ -99,7 +107,7 @@ div.interface{
 .ligne_joueur{
     height: 40px;
     line-height: 40px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto 15px;
 
     %label{
@@ -112,7 +120,8 @@ div.interface{
 
     .joueur{
         @extend %label;
-        width: 60%;
+        width: 67%;
+        font-size: 0.8em;
         background: #55a87e;
         color: #1b6241;
         border-radius: 50px 0 0 50px;
@@ -120,7 +129,7 @@ div.interface{
 
     .score{
         @extend %label;
-        width: 40%;
+        width: 33%;
         font-weight: bold;
         font-size: 1.2em;
         background: #1b6241;
@@ -142,6 +151,11 @@ div.interface{
     margin:5px;
     //box-shadow: 0 0 3px rgba(0,0,0,0.3);
     background-image: url(../images/back_card.jpg);
+    transition: box-shadow .1s linear;
+
+    &:hover{
+        box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    }
 
     &.masquee{
     }
@@ -153,6 +167,7 @@ div.interface{
     &.validee{
         background-image: url(../images/cards.png);
         opacity: .5;
+        box-shadow: 0 0 3px rgba(0,0,0,0.3);
     }
 }
 
@@ -160,10 +175,8 @@ div.interface{
     height: 50px;
     line-height: 50px;
     text-align: center;
-    text-transform: uppercase;
     font-size: 1.2em;
     font-weight: bold;
-
 }
 
 .jauge{
@@ -196,7 +209,14 @@ div.interface{
     bottom: 0;
     left: 0;
     right: 0;
+    text-align: center;
 
+}
+
+%issues_parties{
+    font-family: 'Lobster', cursive;
+    font-size: 2em;
+    margin: 1em 0 0.5em;
 }
 
 #encart_victoire{
@@ -210,11 +230,66 @@ div.interface{
         width: 50%;
         box-shadow: 0 0 20px rgba(0,0,0,0.3);
         transform: translate(-50%, -50%);
-
+        background: #fff;
+        padding: 0 20px;
+        box-sizing: border-box;
     }
+
+    .issuePartie{
+        @extend %issues_parties;
+        color: #9f232a;
+    }
+
+    #scoreJoueur{
+        font-family: 'Lobster', cursive;
+        color: rgba(27,98,65,0.9);
+        font-weight: bold;
+        font-size: 3em;
+    }
+
+    input[type=text]{
+        width: 80%;
+        border: none;
+        width: 80%;
+        margin: 0 auto;
+        border-radius: 50px;
+        line-height: 50px;
+        font-size: 1.2em;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+                
+    }
+
+    input[type=submit]{
+        @extend %btn;
+        padding: 0;
+        border: none;
+        margin-bottom:0;
+    }
+
 }
 
 #encart_defaite{
     @extend %encarts_de_fin;
     background: rgba(159,35,42,0.9);
+
+    .defaite_content{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+    }
+
+    .issuePartie{
+        @extend %issues_parties;
+        color: #fff;
+    }
+}
+
+#felicitations{
+    min-height: 3em;
+    font-size: 0.7em;
+    line-height: 1.5em;
+    margin: 0 0 1.5em;
 }

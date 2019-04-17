@@ -51,11 +51,13 @@
         
                 <div id="encart_victoire">
                     <div class="formulaire">
+                            <p class="issuePartie">Félicitations !</p>
+                            <div id="scoreJoueur">5.84</div>
+                            <p>Entrez votre pseudo pour sauvegarder votre score.</p>
             
                         <form method="POST" action=""><!-- Ce formulaire va nous permettre d'inscire le score d'une partie gagnée dans la base de données, en AJAX -->
-                            Pseudo : <input type="text" name="pseudoJoueur" id="pseudoJoueur" /></input>
+                            <input type="text" name="pseudoJoueur" id="pseudoJoueur" placeholder="Votre pseudo" /></input>
                             <input type="submit" name="submit" value="Sauvegarder" id="envoi" />
-                            <div id="scoreJoueur"></div>
                         </form>
             
                         <div id="felicitations"></div>
@@ -64,7 +66,11 @@
                 </div>
         
                 <div id="encart_defaite">
-                    Vous avez perdu... :'(
+                    <div class="defaite_content">
+                        <p class="issuePartie">Défaite</p>
+                        <p>Désolé, vous avez perdu... :'(</p>
+                        <p>Mais vous pouvez relancer une partie tout de suite !</p>
+                    </div>
                 </div>
 
             </div>
