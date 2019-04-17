@@ -7,7 +7,7 @@
 
 
 define('DB_HOST', 'localhost');     // Adresse de l’hébergement MySQL.
-define('DB_NAME', 'memory');        // Nom de la base de données de WordPress.
+define('DB_NAME', 'memory_grejalot');        // Nom de la base de données de WordPress.
 define('DB_LOGIN', 'root');         // Utilisateur de la base de données MySQL.
 define('DB_PASSWORD', '');          // Mot de passe de la base de données MySQL.
 

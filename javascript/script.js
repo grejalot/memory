@@ -11,8 +11,8 @@ $(document).ready(function(){
     
     // Dans cette première partie du fichier, on va déclarer toutes les variables qui vont nous servir pour le jeu
 
-    var nbCartes = 2;                      // Le nombre de carte que va contenir notre partie
-    var dureeChrono = 3;                   // La durée du temps imparti pour finir le jeu, en seconde.
+    var nbCartes = 36;                      // Le nombre de carte que va contenir notre partie
+    var dureeChrono = 90;                   // La durée du temps imparti pour finir le jeu, en seconde.
 
     var ensembleDesCartes = new Object();   // Un objet qui va contenir l'ensemble de notre jeu de carte
     var Carte1 = new Object();              // Un objet qui va contenir la 1ère carte retournée lors d'une comparaison de deux cartes
@@ -497,19 +497,14 @@ $(document).ready(function(){
                         sauvegarderScore(pseudoJoueur,scoreJoueur);
                         afficherScores();
     
-                    }else{
-                         $("#felicitations").text("Le pseudo contient des caractères interdits. Utilisez uniquement chiffres, lettres et espaces."); // si pseudo contient des caractères spéciaux
-                    }
+                    }else{ $("#felicitations").text("Le pseudo contient des caractères interdits. Utilisez uniquement chiffres, lettres et espaces."); } // si pseudo contient des caractères spéciaux                   
 
-                }else{
-                     $("#felicitations").text("Le nom du pseudo n'est pas renseigné"); // si le nom du joueur n'est pas renseigné
-                }
-            }else{
-                $("#felicitations").text("Vous n'avez pas de score"); // si le score n'est pas valide
-            }
-        }else{
-            $("#felicitations").text("La partie n'est pas gagnée."); // si la partie n'est pas gagnée
-        }
+                }else{ $("#felicitations").text("Le nom du pseudo n'est pas renseigné"); } // si le nom du joueur n'est pas renseigné
+                
+            }else{ $("#felicitations").text("Vous n'avez pas de score"); } // si le score n'est pas valide
+            
+        }else{ $("#felicitations").text("La partie n'est pas gagnée."); } // si la partie n'est pas gagnée
+        
 
     });
     
