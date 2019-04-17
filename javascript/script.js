@@ -12,7 +12,7 @@ $(document).ready(function(){
     // Dans cette première partie du fichier, on va déclarer toutes les variables qui vont nous servir pour le jeu
 
     var nbCartes = 36;                      // Le nombre de carte que va contenir notre partie
-    var dureeChrono = 90;                   // La durée du temps imparti pour finir le jeu, en seconde.
+    var dureeChrono = 99;                   // La durée du temps imparti pour finir le jeu, en seconde.
 
     var ensembleDesCartes = new Object();   // Un objet qui va contenir l'ensemble de notre jeu de carte
     var Carte1 = new Object();              // Un objet qui va contenir la 1ère carte retournée lors d'une comparaison de deux cartes
@@ -426,6 +426,37 @@ $(document).ready(function(){
 
 
 
+    // Fonction permettant d'afficher le tableau de score s'il est masqué (en responsive)
+    // ou de l'enlever s'il est affiché
+
+    function afficherMasquerScore(){
+
+        if($('#tableauScores').hasClass("tableau_cache")){
+
+            $('#tableauScores').removeClass("tableau_cache").addClass("tableau_visible");
+
+        }else if($('#tableauScores').hasClass("tableau_visible")){
+
+            $('#tableauScores').removeClass("tableau_visible").addClass("tableau_cache");
+        }
+
+    }
+
+
+
+    // Fonction permettant d'uniquement masquer le tableau des scores s'il est affiché
+
+    function masquerScore(){
+
+        if($('#tableauScores').hasClass("tableau_visible")){
+
+            $('#tableauScores').removeClass("tableau_visible").addClass("tableau_cache");
+        }
+
+    }
+
+
+
 
 
 
@@ -451,6 +482,9 @@ $(document).ready(function(){
 
         verification($(this).attr('id'));
 
+        // si on est en responsive et que le tableau des scores est affiché, on le vire
+        masquerScore();
+
     });
 
 
@@ -463,6 +497,17 @@ $(document).ready(function(){
         $('#rejouer').text('Relancer');
         rejouer();
 
+        // si on est en responsive et que le tableau des scores est affiché, on le vire
+        masquerScore();
+
+    });
+
+
+
+    // On lance la fonction de switch du tableau des scores lorsqu'on clique sur "meilleurs scores"
+
+    $('#btnMeilleursScores').click(function(){
+        afficherMasquerScore();
     });
 
 
@@ -475,6 +520,9 @@ $(document).ready(function(){
         On empêche donc son action par défaut
         */
         e.preventDefault();
+
+        // si on est en responsive et que le tableau des scores est affiché, on le vire
+        masquerScore();
 
         //on récupère ce que le joueur a rentré dans le formulaire
         var pseudoJoueur = $('#pseudoJoueur').val();

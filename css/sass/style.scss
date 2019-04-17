@@ -1,8 +1,17 @@
+// En premier lieu, on applique les éléments qui seront le plus utilisés sur notre document à des variables :
+// des couleurs, des largeurs fixes pour pouvoir ensuite adapter le contenu à partir de cette valeur, etc.
+
 $vert:#1b6241;
 $rouge:#9f232a;
 $blanc:#fff;
 $shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 $font-titre:'Lobster', cursive;
+$taille-police:16px;
+$largeur-interface:900px;
+$largeur-carte:80px;
+
+
+// Ensuite, on écrit le code en utilisant les imbrications et les variables déclarées
 
 html{
     height: 100%;
@@ -11,9 +20,13 @@ html{
 
 body{
     margin: 0;
-    font-size: 16px;  
+    font-size: $taille-police;  
     font-family: 'Montserrat', sans-serif;
     color: #444;
+
+
+    // Les classes précédées d'un % sont des "faux sélecteurs". Ils ne seront pas compilés eux-mêmes dans le fichier .css final, 
+    // mais peut être appelé par d'autres sélecteurs
 
     %titre{
         text-align: center;
@@ -38,7 +51,7 @@ body{
 
 div.interface{
 
-    max-width: 900px;
+    max-width: $largeur-interface;
     margin: 0 auto;
 
     %colonne{
@@ -60,7 +73,7 @@ div.interface{
     .droite{
         @extend %colonne;
         width: 68%;
-        min-height: 670px;
+        min-height: ( $largeur-interface * 0.68 )+60px;
         background: url(../images/background_plateau.jpg) $blanc no-repeat right bottom;
     }
 
@@ -70,9 +83,7 @@ div.interface{
     }
 
     .informations{
-        max-width: 650px;
         margin: 0 auto;
-
     }
 
 }
@@ -93,6 +104,8 @@ div.interface{
 
     &:hover{
         background: $blanc;
+
+        // Ici, on utilise darken() pour foncer la couleur de notre variable.
         color: darken($rouge, 5);
         box-shadow: $shadow;
     }
@@ -105,9 +118,6 @@ div.interface{
 
 #tableauScores{
 
-    #affichageScores{
-
-    }
 }
 
 .ligne_joueur{
@@ -127,6 +137,8 @@ div.interface{
         @extend %label;
         width: 67%;
         font-size: 0.8em;
+        
+        // Ici, on utilise lighten() pour éclaircir la couleur de notre variable.
         background: lighten($vert, 50);
         color: $vert;
         border-radius: 50px 0 0 50px;
@@ -147,14 +159,13 @@ div.interface{
 
 .carte{
     display: inline-block;
-    width: 80px;
-    height: 80px;
+    width: $largeur-carte;
+    height: $largeur-carte;
     background-color: $blanc;
     background-size: 100% auto;
     cursor: pointer;
     border: none;
-    margin:5px;
-    //box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    margin:($largeur-carte/16);
     background-image: url(../images/back_card.jpg);
     transition: box-shadow .1s linear;
 
@@ -186,7 +197,9 @@ div.interface{
 
 .jauge{
     @extend %formejauge;
-    width: 530px;
+
+    // Ici, la largeur de la jauge est égale à 6 largeurs de carte, plus leurs margin (sauf les 2 margin des extrémités, soit 10 margin)
+    width: ($largeur-carte * 6)+(($largeur-carte/16)*10);
     margin: 1em auto;
     background: lighten($rouge, 35);
     position: relative;
@@ -226,18 +239,25 @@ div.interface{
 
 #encart_victoire{
     @extend %encarts_de_fin;
+
+    // Ici, on utilise rgba() avec notre variable de couleur en hexadécimale, pour jouer uniquement sur son opacité
     background: rgba($vert, 0.9);
 
     .formulaire{
         position: absolute;
-        top: 50%;
-        left: 50%;
         width: 50%;
         box-shadow: $shadow;
-        transform: translate(-50%, -50%);
         background: $blanc;
         padding: 0 20px;
         box-sizing: border-box;
+
+        // Les trois lignes suivantes sont utilisées pour centrer notre élément horizontalement et verticalement dans son parent.
+        // transform() va déplacer le point de référence de l'élément (à l'origine en haut à gauche) pour le mettre au milieu
+        // ensuite, les attributs top et left vont centrer le point de référence de l'élément, et le tout sera centré dynamiquement
+
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .issuePartie{
@@ -297,4 +317,226 @@ div.interface{
     font-size: 0.7em;
     line-height: 1.5em;
     margin: 0 0 1.5em;
+}
+
+
+
+// Ici, une media query : entre les acoolades, le code suivant ne s'appliquera que lorsque la largeur du contenu est inférieure à 912px
+
+@media all and (max-width: 912px){
+
+    
+    $largeur-interface:500px;
+    $taille-police: $taille-police - 2px; 
+    $largeur-carte:70px; 
+
+    body{
+        font-size: $taille-police;  
+    }
+
+    div.interface{
+        max-width: $largeur-interface;
+    
+        .droite{
+            min-height: ( $largeur-interface )+80px;
+        }
+
+        .gauche{
+            border-radius: 0;
+        }
+    }
+
+    %colonne{
+        float: none;
+        width: 100%;
+        margin: 0 0 10px 0;
+        padding: 1em 0;
+    }
+
+    .carte{
+        width: $largeur-carte;
+        height: $largeur-carte;
+        margin:($largeur-carte/16);
+    }
+    
+    #rejouer{
+        margin: 0 auto;
+    }
+
+    .jauge{
+        // Ici, on remet la même opération que tout à l'heure, avec la variable à jour
+        width: ($largeur-carte * 6)+(($largeur-carte/16)*10);
+        margin: 0 auto;
+    }
+
+    #tableauScores{
+        position: fixed;
+        z-index: 15;
+        top: 15px;
+        width: 250px;
+        height: 290px;
+        background:$blanc;
+        box-shadow: $shadow;
+        transition: left .1s linear;
+
+        &.tableau_cache{
+
+            // Cette ligne fait sortir le cadre sur la gauche de la fenêtre lorsque la classe "cache" est activée
+            // mais uniquement lorsque la taille de la fenêtre est inférieure à 912px (vu qu'on est dans une media query)
+            left: -250px;
+        }
+
+        &.tableau_visible{
+
+            // Cette ligne rend le cadre visible lorsque la classe "visible" est activée
+            left: 0;
+        }
+
+        h2#btnMeilleursScores{
+            width: 290px;
+            height: 50px;
+            line-height: 50px;
+            margin: 0;
+            border-radius: 0 0 30px 30px;
+            position: absolute;
+            right:0;
+            top: 0;
+            cursor: pointer;
+            transition: background-color .1s linear;
+
+            // On va faire basculer tout ce bloc à 90°, en définissant bien l'axe de rotation au préalable 
+            transform-origin : top right;
+            transform: rotate(-90deg);
+
+            &:hover{
+                background: darken($vert, 10)
+            }
+
+        }
+
+        #affichageScores{
+            padding: 15px 0 0 0;
+            width: 250px;
+        }
+    }
+
+}
+
+
+
+// Nouvelle media query pour toucher le code lorsque la largeur du contenu est inférieure à 511px
+// Du coup, le code de la requête principale sera aussi actif, on n'a pas besoin de le retaper, on adapte uniquement ce qu'on veut changer
+
+@media all and (max-width: 511px){
+
+    $taille-police: $taille-police - 5px; 
+
+    body{
+        font-size: $taille-police;  
+
+        h1{
+            font-size: 2.3em;
+            margin: 0.5em 0;
+        }
+    }
+    
+
+    %btn{
+        margin: 0.8em auto;
+        line-height: 35px;
+        font-size: 1.1em;
+
+    }
+
+    div.interface{
+        width: 95%;
+    
+        .droite{
+
+            // Ici, vu que l'affichage est dynamique, on utilise l'unité "vw" qui désigne le pourcentage de la largeur de la fenêtre,
+            // de façon à garder un aspect carré pour le plateau, en ajoutant la hauteur de la jauge de timer (70px)
+            min-height: calc(95vw + 70px);
+        }
+    }
+
+
+    // A partir de cette taille de fenêtre, les dimensions des cartes passent en relatives : elles sont fonction de la largeur
+
+    .carte{
+        width: 15%;
+        margin: 0.75%;
+
+        // les deux lignes en dessous permettent d'avoir une hauteur égale à la largeur et de conserver le ratio carré des cartes
+
+        height: 0;
+        padding-top: 15%;
+    }
+    
+    #rejouer{
+        margin: 0 auto;
+    }
+
+    .jauge{
+        // Ici, on remet la même opération que tout à l'heure, avec la variable à jour
+        width: 97.5%;
+        margin: 0 auto 10px;
+    }
+
+    #tableauScores{
+        top: inherit;
+        bottom:-290px;
+        width: 95%;
+        height: 210px;
+        transition: bottom .1s linear;
+
+        &.tableau_cache{
+
+            // Cette ligne fait sortir le cadre sur la gauche de la fenêtre lorsque la classe "cache" est activée
+            // mais uniquement lorsque la taille de la fenêtre est inférieure à 912px (vu qu'on est dans une media query)
+            left: inherit;
+            bottom:-210px;
+        }
+
+        &.tableau_visible{
+
+            // Cette ligne rend le cadre visible lorsque la classe "visible" est activée
+            left: inherit;
+            bottom: 0;
+        }
+
+        h2#btnMeilleursScores{
+            width: 100%;
+            height: 35px;
+            line-height: 35px;
+            margin: 0;
+            border-radius: 30px 30px 0 0;
+            right:inherit;
+            top: -35px;
+
+
+            transform-origin : top left;
+            transform: rotate(0);
+
+        }
+
+        #affichageScores{
+            padding: 10px 0 0 0;
+            width: 100%;
+        }
+    }
+
+    
+
+.ligne_joueur{
+    height: 30px;
+    line-height: 30px;
+    width: 90%;
+    margin: 0 auto 10px;
+
+    .joueur{
+        font-size: 1em;
+    }
+
+}
+
 }

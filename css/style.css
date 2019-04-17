@@ -43,7 +43,7 @@ div.interface .gauche {
 }
 div.interface .droite {
   width: 68%;
-  min-height: 670px;
+  min-height: 672px;
   background: url(../images/background_plateau.jpg) #fff no-repeat right bottom;
 }
 div.interface .plateau {
@@ -51,7 +51,6 @@ div.interface .plateau {
   text-align: center;
 }
 div.interface .informations {
-  max-width: 650px;
   margin: 0 auto;
 }
 
@@ -174,14 +173,14 @@ div.interface .informations {
 }
 #encart_victoire .formulaire {
   position: absolute;
-  top: 50%;
-  left: 50%;
   width: 50%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transform: translate(-50%, -50%);
   background: #fff;
   padding: 0 20px;
   box-sizing: border-box;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 #encart_victoire .issuePartie {
   color: #9f232a;
@@ -228,6 +227,161 @@ div.interface .informations {
   font-size: 0.7em;
   line-height: 1.5em;
   margin: 0 0 1.5em;
+}
+
+@media all and (max-width: 912px) {
+  body {
+    font-size: 14px;
+  }
+
+  div.interface {
+    max-width: 500px;
+  }
+  div.interface .droite {
+    min-height: 580px;
+  }
+  div.interface .gauche {
+    border-radius: 0;
+  }
+
+  div.interface .gauche, div.interface .droite {
+    float: none;
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 1em 0;
+  }
+
+  .carte {
+    width: 70px;
+    height: 70px;
+    margin: 4.375px;
+  }
+
+  #rejouer {
+    margin: 0 auto;
+  }
+
+  .jauge {
+    width: 463.75px;
+    margin: 0 auto;
+  }
+
+  #tableauScores {
+    position: fixed;
+    z-index: 15;
+    top: 15px;
+    width: 250px;
+    height: 290px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: left 0.1s linear;
+  }
+  #tableauScores.tableau_cache {
+    left: -250px;
+  }
+  #tableauScores.tableau_visible {
+    left: 0;
+  }
+  #tableauScores h2#btnMeilleursScores {
+    width: 290px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0;
+    border-radius: 0 0 30px 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    transition: background-color 0.1s linear;
+    transform-origin: top right;
+    transform: rotate(-90deg);
+  }
+  #tableauScores h2#btnMeilleursScores:hover {
+    background: #103a26;
+  }
+  #tableauScores #affichageScores {
+    padding: 15px 0 0 0;
+    width: 250px;
+  }
+}
+@media all and (max-width: 511px) {
+  body {
+    font-size: 11px;
+  }
+  body h1 {
+    font-size: 2.3em;
+    margin: 0.5em 0;
+  }
+
+  #rejouer, #encart_victoire input[type=submit] {
+    margin: 0.8em auto;
+    line-height: 35px;
+    font-size: 1.1em;
+  }
+
+  div.interface {
+    width: 95%;
+  }
+  div.interface .droite {
+    min-height: calc(95vw + 70px);
+  }
+
+  .carte {
+    width: 15%;
+    margin: 0.75%;
+    height: 0;
+    padding-top: 15%;
+  }
+
+  #rejouer {
+    margin: 0 auto;
+  }
+
+  .jauge {
+    width: 97.5%;
+    margin: 0 auto 10px;
+  }
+
+  #tableauScores {
+    top: inherit;
+    bottom: -290px;
+    width: 95%;
+    height: 210px;
+    transition: bottom 0.1s linear;
+  }
+  #tableauScores.tableau_cache {
+    left: inherit;
+    bottom: -210px;
+  }
+  #tableauScores.tableau_visible {
+    left: inherit;
+    bottom: 0;
+  }
+  #tableauScores h2#btnMeilleursScores {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    margin: 0;
+    border-radius: 30px 30px 0 0;
+    right: inherit;
+    top: -35px;
+    transform-origin: top left;
+    transform: rotate(0);
+  }
+  #tableauScores #affichageScores {
+    padding: 10px 0 0 0;
+    width: 100%;
+  }
+
+  .ligne_joueur {
+    height: 30px;
+    line-height: 30px;
+    width: 90%;
+    margin: 0 auto 10px;
+  }
+  .ligne_joueur .joueur {
+    font-size: 1em;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
