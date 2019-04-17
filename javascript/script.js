@@ -12,7 +12,7 @@ $(document).ready(function(){
     // Dans cette première partie du fichier, on va déclarer toutes les variables qui vont nous servir pour le jeu
 
     var nbCartes = 36;                      // Le nombre de carte que va contenir notre partie
-    var dureeChrono = 99;                   // La durée du temps imparti pour finir le jeu, en seconde.
+    var dureeChrono = 120;                   // La durée du temps imparti pour finir le jeu, en seconde.
 
     var ensembleDesCartes = new Object();   // Un objet qui va contenir l'ensemble de notre jeu de carte
     var Carte1 = new Object();              // Un objet qui va contenir la 1ère carte retournée lors d'une comparaison de deux cartes

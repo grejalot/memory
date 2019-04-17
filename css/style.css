@@ -322,8 +322,14 @@ div.interface .informations {
   div.interface {
     width: 95%;
   }
+  div.interface .gauche {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
   div.interface .droite {
     min-height: calc(95vw + 70px);
+    padding: 0;
   }
 
   .carte {
@@ -335,10 +341,16 @@ div.interface .informations {
 
   #rejouer {
     margin: 0 auto;
+    width: 50%;
+  }
+
+  .jauge, .jauge #barreProgression, .jauge #temps {
+    height: 30px;
+    line-height: 30px;
   }
 
   .jauge {
-    width: 97.5%;
+    width: 100%;
     margin: 0 auto 10px;
   }
 

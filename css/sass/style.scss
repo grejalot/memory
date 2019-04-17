@@ -9,6 +9,7 @@ $font-titre:'Lobster', cursive;
 $taille-police:16px;
 $largeur-interface:900px;
 $largeur-carte:80px;
+$hauteur-jauge:50px;
 
 
 // Ensuite, on écrit le code en utilisant les imbrications et les variables déclarées
@@ -188,8 +189,8 @@ div.interface{
 }
 
 %formejauge{
-    height: 50px;
-    line-height: 50px;
+    height: $hauteur-jauge;
+    line-height: $hauteur-jauge;
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;
@@ -430,6 +431,7 @@ div.interface{
 @media all and (max-width: 511px){
 
     $taille-police: $taille-police - 5px; 
+    $hauteur-jauge:30px;
 
     body{
         font-size: $taille-police;  
@@ -450,12 +452,19 @@ div.interface{
 
     div.interface{
         width: 95%;
+
+        .gauche{
+            padding: 0;
+            background: none;
+            box-shadow: none;
+        }
     
         .droite{
 
             // Ici, vu que l'affichage est dynamique, on utilise l'unité "vw" qui désigne le pourcentage de la largeur de la fenêtre,
             // de façon à garder un aspect carré pour le plateau, en ajoutant la hauteur de la jauge de timer (70px)
             min-height: calc(95vw + 70px);
+            padding: 0;
         }
     }
 
@@ -474,11 +483,18 @@ div.interface{
     
     #rejouer{
         margin: 0 auto;
+        width: 50%;
     }
 
-    .jauge{
-        // Ici, on remet la même opération que tout à l'heure, avec la variable à jour
-        width: 97.5%;
+    
+
+    %formejauge{
+        height: $hauteur-jauge;
+        line-height: $hauteur-jauge;
+    }
+
+    .jauge{       
+        width: 100%;
         margin: 0 auto 10px;
     }
 
