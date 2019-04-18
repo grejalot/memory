@@ -385,6 +385,10 @@ div.interface .informations {
     width: 100%;
   }
 
+  #encart_victoire .formulaire {
+    width: 70%;
+  }
+
   .ligne_joueur {
     height: 30px;
     line-height: 30px;
