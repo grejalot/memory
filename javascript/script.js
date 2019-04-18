@@ -85,7 +85,7 @@ $(document).ready(function(){
             // On crée un objet carte, en lui donnant en propriété son ID (carte_i), son fruit et son statut, par défaut "masquée"
             numeroCarte = "carte_"+i;
             fruitCarte = fruit;
-            var carte = new Carte('#'+numeroCarte, fruitCarte, "masquee")
+            var carte = new Carte('#'+numeroCarte, fruitCarte, "masquee");
 
             // On place cet objet carte dans notre objet ensembleDesCartes
             ensembleDesCartes[numeroCarte] = carte;
@@ -256,7 +256,7 @@ $(document).ready(function(){
     function chronometre(){
 
         // le temps écoulé est incrémenté de 0.01 . Il correspondra donc au temps en seconde.
-        tempsEcoule += 0.01
+        tempsEcoule += 0.01 ;
 
         // On affiche au joueur la variable tempsAffiche, qui est simplement la variable tempsEcoule arrondie à 2 chiffres après la virgule 
         tempsAffiche = (Math.round(tempsEcoule*100))/100;
